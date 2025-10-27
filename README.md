@@ -42,4 +42,4 @@ This project focuses on designing a scalable and efficient data pipeline for NYP
 ![Alt text](./screenshots/snowflakeLoad.png)
 
 ### Step 6: Data Visualization and Analysis
-![Alt text](./screenshots/NYPD Arrests.png)
+![Alt text](./screenshots/NYPDArrests.png)
