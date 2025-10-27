@@ -1,4 +1,5 @@
 /data/raw
-nypd_arrests_cleaned.csv
+.nypd_arrests_cleaned.csv
 /data/processed
 data/processed
+nypd_arrests_cleaned.csv
