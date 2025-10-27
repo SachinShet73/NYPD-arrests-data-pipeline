@@ -27,7 +27,7 @@ This project focuses on designing a scalable and efficient data pipeline for NYP
 - **Data Pipeline Implementation**: Built an **Azure Data Factory** pipeline to load transformed data into **Snowflake** efficiently.  
 
 ### Step 1: Data Profiling
-![Alt text](./screenshots/DataProfling.png)
+![Alt text](./screenshots/DataProfiling.png)
 
 ### Step 2: Dimension Modeling
 ![Alt text](./models/image.png)
