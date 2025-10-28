@@ -1,0 +1,214 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.claude/
+  settings.local.json
+.gitignore
+.repomixignore
+LICENSE
+profiler.py
+README.md
+split_csv.py
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".claude/settings.local.json">
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(git config:*)",
+      "Bash(git filter-branch:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
+</file>
+
+<file path=".repomixignore">
+/data
+data
+data/profiling/nypd_arrests_profile.html
+.data/profiling/nypd_arrests_profile.html
+</file>
+
+<file path="LICENSE">
+MIT License
+
+Copyright (c) 2025 Sachin Shet
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</file>
+
+<file path="split_csv.py">
+import pandas as pd
+import os
+
+# Read the large CSV
+print("Reading CSV file...")
+df = pd.read_csv('nypd_arrests_cleaned.csv')
+
+total_rows = len(df)
+print(f"Total rows: {total_rows}")
+
+# Split into chunks (aim for ~200MB each, roughly 400k rows)
+chunk_size = 400000
+
+# Calculate number of chunks needed
+num_chunks = (total_rows // chunk_size) + 1
+print(f"Splitting into {num_chunks} chunks...")
+
+# Create output directory
+os.makedirs('data/processed/chunks', exist_ok=True)
+
+# Split and save
+for i in range(num_chunks):
+    start_idx = i * chunk_size
+    end_idx = min((i + 1) * chunk_size, total_rows)
+    
+    chunk = df[start_idx:end_idx]
+    filename = f'data/processed/chunks/nypd_arrests_part_{i+1}.csv'
+    
+    chunk.to_csv(filename, index=False)
+    print(f"Created {filename} with {len(chunk)} rows")
+
+print("✅ Split complete!")
+</file>
+
+<file path="profiler.py">
+import pandas as pd
+from ydata_profiling import ProfileReport
+
+# Load the data
+df = pd.read_csv('data/raw/NYPD_Arrests_Data__Historic_reduced.csv')
+
+# Generate profiling report
+profile = ProfileReport(df, 
+                       title="NYPD Arrests Data Profile",
+                       explorative=True,
+                       minimal=False)
+
+# Save report
+profile.to_file("data/profiling/nypd_arrests_profile.html")
+
+print(f"Dataset shape: {df.shape}")
+print(f"\nColumn names:\n{df.columns.tolist()}")
+print(f"\nMissing values:\n{df.isnull().sum()}")
+print(f"\nData types:\n{df.dtypes}")
+</file>
+
+<file path=".gitignore">
+/data/raw
+.nypd_arrests_cleaned.csv
+/data/processed
+data/processed
+nypd_arrests_cleaned.csv
+</file>
+
+<file path="README.md">
+# **NYPD Crime & Arrests Data Pipeline**  
+
+## **Overview**  
+This project focuses on designing a scalable and efficient data pipeline for NYPD crime and arrest data. The data is sourced from the NYPD website, updated regularly since June 5, 2018, and initially contained 260,503 records at the time of analysis.  
+
+[![Tableau Dashboard Link](https://img.shields.io/badge/Tableau_Dashboard_Link-4285F4?style=for-the-badge&logo=codelabs&logoColor=white)](https://public.tableauD)
+
+## **Technologies Used**  
+![Snowflake](https://img.shields.io/badge/Snowflake-0093F1?style=for-the-badge&logo=snowflake&logoColor=white)
+![Alteryx](https://img.shields.io/badge/Alteryx-E84D3D?style=for-the-badge&logoColor=white)
+![Azure DataFactory](https://img.shields.io/badge/Azure%20DataFactory-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
+![ER Studio](https://img.shields.io/badge/ER%20Studio-4EA94B?style=for-the-badge&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
+
+## **Problem Statement**  
+
+### **Challenge**  
+- The dataset contained missing values, inconsistencies, and data type errors.  
+- A robust data model was required to support analytical queries on crime and arrests.  
+- Efficient data ingestion, transformation, and loading into Snowflake were needed for large-scale analysis.  
+
+### **Solution**  
+- **Dimensional Modeling**: Designed a star schema using **ER Studio** to optimize query performance.  
+- **Data Profiling**: Used **yDataProfiling** to assess data quality issues and identify necessary transformations.  
+- **Data Cleaning & Transformation**: Applied **Alteryx** workflows to clean and standardize the dataset.  
+- **Data Pipeline Implementation**: Built an **Azure Data Factory** pipeline to load transformed data into **Snowflake** efficiently.  
+
+### Step 1: Data Profiling
+![Alt text](./screenshots/DataProfiling.png)
+
+### Step 2: Dimension Modeling
+![Alt text](./models/image.png)
+
+### Step 3: Data Cleaning and Transformation using Alteryx
+![Alt text](./screenshots/Alteryx.png)
+
+### Step 4: Azure Data Factory Mapping
+![Alt text](./screenshots/ADFMapping.png)
+
+### Step 5: Snowflake Data
+![Alt text](./screenshots/snowflakeLoad.png)
+
+### Step 6: Data Visualization and Analysis
+![Alt text](./screenshots/NYPDArrests.png)
+</file>
+
+</files>

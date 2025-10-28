@@ -1,0 +1,113 @@
+{
+	"name": "SnowflakeTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NYPD_Snowflake_Connection",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [
+			{
+				"name": "ARREST_KEY",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "ARREST_DATE",
+				"type": "DATE"
+			},
+			{
+				"name": "PD_CD",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "PD_DESC",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "KY_CD",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "OFNS_DESC",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "LAW_CODE",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "LAW_CAT_CD",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "ARREST_BORO",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "ARREST_PRECINCT",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "JURISDICTION_CODE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "AGE_GROUP",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "PERP_SEX",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "PERP_RACE",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "X_COORD_CD",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "Y_COORD_CD",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "LATITUDE",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LONGITUDE",
+				"type": "FLOAT"
+			},
+			{
+				"name": "New Georeferenced Column",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "DI_JOB_ID",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "DI_LOAD_DT",
+				"type": "DATE"
+			}
+		],
+		"typeProperties": {
+			"schema": "NYPD_ARREST_SCHEMA",
+			"table": "NYPD_ARREST_STAGE_TABLE"
+		}
+	}
+}
